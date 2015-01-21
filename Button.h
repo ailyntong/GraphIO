@@ -15,6 +15,7 @@ private:
 	const milliseconds to_time = (milliseconds)500;
 	std::chrono::system_clock::time_point t0;
 	bool click_to = false;
+
 public:
 	Button(sf::Vector2f pos, sf::Vector2f dim);
 

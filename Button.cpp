@@ -34,9 +34,6 @@ void Button::update(const sf::RenderWindow &win) {
 		t0 = std::chrono::high_resolution_clock::now();
 	}
 
-	
-
-
 }
 
 bool Button::clicked(const sf::RenderWindow &win, sf::Vector2f mouse_pos) const {
