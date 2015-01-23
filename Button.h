@@ -5,14 +5,14 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 #include <chrono>
-class Button : public sf::RectangleShape {
+class Button : public sf::RectangleShape {	//a button is a rectangle
 private:
-	using milliseconds = std::chrono::milliseconds;
-	sf::Color enabled, disabled;
+	using milliseconds = std::chrono::milliseconds;	//shortcut
+	sf::Color enabled, disabled;	//default enabled is green, disabled is red
 	sf::Vector2f pos, dim;
 	enum State { ENABLED, DISABLED } state;
 
-	const milliseconds to_time = (milliseconds)500;
+	const milliseconds to_time = (milliseconds)500;		//for timer
 	std::chrono::system_clock::time_point t0;
 	bool click_to = false;
 
@@ -24,6 +24,9 @@ public:
 
 	inline State getState() const { return state; }
 	inline void setState(State state) { this->state = state; }
+	/*friend std::ostream& operator<<(std::ostream &os, Button &button) {
+		return os << button.pos.x << ", " << button.pos.y;
+	}*/
 };
 
 #endif

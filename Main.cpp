@@ -25,9 +25,9 @@ int main() {
 	settings.antialiasingLevel = 10;
 	//creates two windows, updates 20 times a second (once every 10 freyja updates)
 	sf::RenderWindow win(sf::VideoMode(1000, 500), "Linear");
-	win.setFramerateLimit(20);
+	win.setFramerateLimit(10);
 	sf::RenderWindow win2(sf::VideoMode(1000, 500), "Curvy");
-	win2.setFramerateLimit(20);
+	win2.setFramerateLimit(10);
 	//see new points while keeping old ones, scrolling
 	sf::View view{ sf::FloatRect{ 0.f, 0.f, 1000, 500 } };
 	view.zoom(1);
@@ -58,7 +58,8 @@ int main() {
 
 		win.clear({ 20, 27, 35 });	//clears into nice blue-grayish background color
 		win2.clear({ 20, 27, 35 });
-		
+
+		//std::cout << button << std::endl;
 		graph.draw(&win);
 		//button.update(win);
 		//win.draw(button);
@@ -81,5 +82,5 @@ double randValue() {
 	std::uniform_int_distribution<int> distribution(-100, 100);
 	auto dice = std::bind(distribution, generator);
 
-	return dice() / 100;
+	return dice() / 100.0;
 }
