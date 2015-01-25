@@ -8,8 +8,7 @@
 class Graph {
 public:
 	Graph(sf::Vector2f dim, sf::Color inputColor = sf::Color::Cyan, sf::Color outputColor = sf::Color::Magenta);	//constructor
-	void addInput(double value);	//from joystick
-	void addOutput(double value);	//from encoder
+	void addData(double input, double output);
 	void draw(sf::RenderWindow *window);	//draws stuff
 private:
 	sf::Vector2f dim;	//dimensions of graph

@@ -20,15 +20,14 @@
 double randValue();
 
 int main() {
-	//less pixelation
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 10;
-	//creates two windows, updates 20 times a second (once every 10 freyja updates)
+
 	sf::RenderWindow win(sf::VideoMode(1000, 500), "Linear");
-	win.setFramerateLimit(10);
+	win.setFramerateLimit(5);
 	sf::RenderWindow win2(sf::VideoMode(1000, 500), "Curvy");
-	win2.setFramerateLimit(10);
-	//see new points while keeping old ones, scrolling
+	win2.setFramerateLimit(5);
+
 	sf::View view{ sf::FloatRect{ 0.f, 0.f, 1000, 500 } };
 	view.zoom(1);
 	win.setView(view);

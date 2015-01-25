@@ -10,12 +10,13 @@ outputColor(outputColor)
 
 }
 
-void Graph::addInput(double value) {
-	inputData.push_back(sf::Vertex(sf::Vector2f(inputData.size(), value)));
-}
+//need to convert from normal coordinates into computer coordinates
+void Graph::addData(double input, double output) {
+	int y = dim.y / 2 - (int)(input * 100);
+	inputData.push_back(sf::Vertex(sf::Vector2f(inputData.size(), y), inputColor));
 
-void Graph::addOutput(double value) {
-	outputData.push_back(sf::Vertex(sf::Vector2f(outputData.size(), value)));
+	int y2 = dim.y / 2 - (int)(output * 100);
+	outputData.push_back(sf::Vertex(sf::Vector2f(outputData.size(), y2), outputColor));
 }
 
 //draws everything
@@ -35,6 +36,21 @@ void Graph::draw(sf::RenderWindow *window) {
 		sf::Vertex(sf::Vector2f(dim.x, 400), outputColor)
 	};
 	window->draw(output, 2, sf::Lines);
+
+	if (inputData.size() == 0 || outputData.size() == 0) return;
+
+	//draw last bunch of data points
+	int startIndex;
+	if (inputData.size() < 10) startIndex = 1;
+	else startIndex = inputData.size() - 9;
+
+	for (int i = startIndex; i < inputData.size(); i++) {
+		sf::Vertex segment[] = {inputData[i-1], inputData[i]};
+		window->draw(segment, 2, sf::Lines);
+
+		sf::Vertex segment2[] = { inputData[i - 1], inputData[i] };
+		window->draw(segment2, 2, sf::Lines);
+	}
 	
 }
 
