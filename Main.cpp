@@ -24,9 +24,9 @@ int main() {
 	settings.antialiasingLevel = 10;
 
 	sf::RenderWindow win(sf::VideoMode(1000, 500), "Linear");
-	win.setFramerateLimit(5);
+	win.setFramerateLimit(100);
 	sf::RenderWindow win2(sf::VideoMode(1000, 500), "Curvy");
-	win2.setFramerateLimit(5);
+	win2.setFramerateLimit(100);
 
 	sf::View view{ sf::FloatRect{ 0.f, 0.f, 1000, 500 } };
 	view.zoom(1);
@@ -38,6 +38,8 @@ int main() {
 	//Button button({ 0, 0 }, { 100, 100 });
 	Graph graph2({ 1000, 500 });
 	//Button button2({ 0, 0 }, { 100, 100 });
+
+	int count = 0;
 
 	//clicking Linear(win) does not close windows while clicking Curvy(win2) does
 	while (win.isOpen() && win2.isOpen()) {
@@ -58,17 +60,27 @@ int main() {
 		win.clear({ 20, 27, 35 });	//clears into nice blue-grayish background color
 		win2.clear({ 20, 27, 35 });
 
-		//std::cout << button << std::endl;
-		graph.draw(&win);
-		//button.update(win);
-		//win.draw(button);
+		/*button.update(win);
+		win.draw(button);
+		button2.update(win2);
+		win2.draw(button2);*/
 
+		graph.addData(randValue()+0.5, randValue());
+		graph2.addData(randValue()-0.5, randValue());
+
+		if (count > 200) {
+			view.move(5, 0);
+			win.setView(view);
+			win2.setView(view);
+		}
+		
+		graph.draw(&win);
 		graph2.draw(&win2);
-		//button2.update(win2);
-		//win2.draw(button2);
 
 		win.display();
 		win2.display();
+
+		++count;
 	}
 
 	return 0;

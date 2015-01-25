@@ -7,16 +7,16 @@ outputData(),
 inputColor(inputColor),
 outputColor(outputColor)
 {
-
+	on = true;
 }
 
 //need to convert from normal coordinates into computer coordinates
 void Graph::addData(double input, double output) {
 	int y = dim.y / 2 - (int)(input * 100);
-	inputData.push_back(sf::Vertex(sf::Vector2f(inputData.size(), y), inputColor));
+	inputData.push_back(sf::Vertex(sf::Vector2f(inputData.size()*5, y), inputColor));
 
 	int y2 = dim.y / 2 - (int)(output * 100);
-	outputData.push_back(sf::Vertex(sf::Vector2f(outputData.size(), y2), outputColor));
+	outputData.push_back(sf::Vertex(sf::Vector2f(outputData.size()*5, y2), outputColor));
 }
 
 //draws everything
@@ -24,7 +24,7 @@ void Graph::draw(sf::RenderWindow *window) {
 	drawAxis(window);
 
 	//color testing
-	sf::Vertex input[] =
+	/*sf::Vertex input[] =
 	{
 		sf::Vertex(sf::Vector2f(0, 100), inputColor),
 		sf::Vertex(sf::Vector2f(dim.x, 100), inputColor)
@@ -35,20 +35,15 @@ void Graph::draw(sf::RenderWindow *window) {
 		sf::Vertex(sf::Vector2f(0, 400), outputColor),
 		sf::Vertex(sf::Vector2f(dim.x, 400), outputColor)
 	};
-	window->draw(output, 2, sf::Lines);
+	window->draw(output, 2, sf::Lines);*/
 
 	if (inputData.size() == 0 || outputData.size() == 0) return;
 
-	//draw last bunch of data points
-	int startIndex;
-	if (inputData.size() < 10) startIndex = 1;
-	else startIndex = inputData.size() - 9;
-
-	for (int i = startIndex; i < inputData.size(); i++) {
-		sf::Vertex segment[] = {inputData[i-1], inputData[i]};
+	for (int i = 1; i < inputData.size(); i++) {
+		sf::Vertex segment[] = { inputData[i - 1], inputData[i] };
 		window->draw(segment, 2, sf::Lines);
 
-		sf::Vertex segment2[] = { inputData[i - 1], inputData[i] };
+		sf::Vertex segment2[] = { outputData[i - 1], outputData[i] };
 		window->draw(segment2, 2, sf::Lines);
 	}
 	
@@ -62,4 +57,14 @@ void Graph::drawAxis(sf::RenderWindow *window) {
 		sf::Vertex(sf::Vector2f(dim.x, dim.y/2), sf::Color{ 50, 55, 125 })
 	};
 	window->draw(x_axis, 2, sf::Lines);
+}
+
+//generates a random value between -1 and 1, supposed to simulate joysticks
+double Graph::randValue() {
+	unsigned seed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	std::default_random_engine generator(seed);
+	std::uniform_int_distribution<int> distribution(-100, 100);
+	auto dice = std::bind(distribution, generator);
+
+	return dice() / 100.0;
 }
