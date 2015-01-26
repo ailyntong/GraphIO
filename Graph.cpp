@@ -54,17 +54,7 @@ void Graph::drawAxis(sf::RenderWindow *window) {
 	sf::Vertex x_axis[] =
 	{
 		sf::Vertex(sf::Vector2f(0, dim.y/2), sf::Color{ 50, 55, 125 }),
-		sf::Vertex(sf::Vector2f(dim.x, dim.y/2), sf::Color{ 50, 55, 125 })
+		sf::Vertex(sf::Vector2f(inputData.size()*5, dim.y/2), sf::Color{ 50, 55, 125 })
 	};
 	window->draw(x_axis, 2, sf::Lines);
-}
-
-//generates a random value between -1 and 1, supposed to simulate joysticks
-double Graph::randValue() {
-	unsigned seed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-	std::default_random_engine generator(seed);
-	std::uniform_int_distribution<int> distribution(-100, 100);
-	auto dice = std::bind(distribution, generator);
-
-	return dice() / 100.0;
 }

@@ -14,16 +14,18 @@
 #include <random>
 #include <chrono>
 #include <functional>
+#include <array>
 #include <iostream>
 
 #include "Graph.h"
 
 class IOGraphs {
 public:
-	IOGraphs(sf::Vector2f dim);
-	void update();
-	void disable();
-	void toggleOn();
+	IOGraphs(sf::Vector2f dim, int numGraphs);
+	virtual ~IOGraphs();
+	void run();
+	inline void toggleOnOff() { isOn = !isOn; };
+	inline bool getOnOff() { return isOn; };
 private:
 	sf::ContextSettings settings;
 	sf::RenderWindow win1, win2;
@@ -32,8 +34,10 @@ private:
 	Graph graph2;
 
 	int numUpdates;
-	bool on;
+	bool isOn;
 	sf::Vector2f dim;
+
+	double randValue();
 };
 
 #endif

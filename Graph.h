@@ -23,7 +23,6 @@ private:
 	sf::Color inputColor, outputColor;	//data colors; default input=cyan, output=magenta
 
 	void drawAxis(sf::RenderWindow *window);	//drawsAxis
-	double randValue();
 };
 
 #endif
