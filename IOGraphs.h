@@ -24,17 +24,13 @@ public:
 	IOGraphs(sf::Vector2f dim, int numGraphs);
 	virtual ~IOGraphs();
 	void run();
-	inline void toggleOnOff() { isOn = !isOn; };
-	inline bool getOnOff() { return isOn; };
 private:
 	sf::ContextSettings settings;
 	sf::RenderWindow win1, win2;
 	sf::View view;
-	Graph graph1;
-	Graph graph2;
+	Graph graph1, graph2;
 
 	int numUpdates;
-	bool isOn;
 	sf::Vector2f dim;
 
 	double randValue();

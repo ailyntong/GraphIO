@@ -7,7 +7,7 @@ outputData(),
 inputColor(inputColor),
 outputColor(outputColor)
 {
-	on = true;
+	running = true;
 }
 
 //need to convert from normal coordinates into computer coordinates

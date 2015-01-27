@@ -17,7 +17,9 @@ public:
 	inline sf::Vector2f getDimensions() { return dim; };
 	inline double getLastInput() { return inputData[inputData.size() - 1].position.y; };
 	inline double getLastOutput() { return outputData[outputData.size() - 1].position.y; };
-	bool on;
+
+	bool running;
+	inline void toggleRunning() { running = !running; };
 private:
 	sf::Vector2f dim;	//dimensions of graph
 	std::vector<sf::Vertex> inputData, outputData;	//data sets

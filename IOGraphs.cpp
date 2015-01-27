@@ -1,7 +1,7 @@
 #include "IOGraphs.h"
 
 IOGraphs::IOGraphs(sf::Vector2f dim, int numGraphs) :
-settings(0, 0, 20),
+settings(0, 0, 25),
 dim(dim),
 win1(sf::VideoMode(dim.x, dim.y), "Win1", sf::Style::Default, settings),
 win2(sf::VideoMode(dim.x, dim.y), "Win2", sf::Style::Default, settings),
@@ -16,7 +16,6 @@ graph2(dim)
 	win2.setView(view);
 	
 	numUpdates = 0;
-	isOn = true;
 }
 
 IOGraphs::~IOGraphs() {
@@ -47,15 +46,13 @@ void IOGraphs::run() {
 		button2.update(win2);
 		win2.draw(button2);*/
 
-		if (isOn) {
-			graph1.addData(randValue() + 0.5, randValue());
-			graph2.addData(randValue() - 0.5, randValue());
+		graph1.addData(randValue() + 0.5, randValue());
+		graph2.addData(randValue() - 0.5, randValue());
 
-			if (++numUpdates > 400) {
-				view.move(5, 0);
-				win1.setView(view);
-				win2.setView(view);
-			}
+		if (++numUpdates > 400) {
+			view.move(5, 0);
+			win1.setView(view);
+			win2.setView(view);
 		}
 
 		graph1.draw(&win1);
