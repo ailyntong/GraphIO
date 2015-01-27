@@ -23,20 +23,6 @@ void Graph::addData(double input, double output) {
 void Graph::draw(sf::RenderWindow *window) {
 	drawAxis(window);
 
-	//color testing
-	/*sf::Vertex input[] =
-	{
-		sf::Vertex(sf::Vector2f(0, 100), inputColor),
-		sf::Vertex(sf::Vector2f(dim.x, 100), inputColor)
-	};
-	window->draw(input, 2, sf::Lines);
-	sf::Vertex output[] =
-	{
-		sf::Vertex(sf::Vector2f(0, 400), outputColor),
-		sf::Vertex(sf::Vector2f(dim.x, 400), outputColor)
-	};
-	window->draw(output, 2, sf::Lines);*/
-
 	if (inputData.size() == 0 || outputData.size() == 0) return;
 
 	for (int i = 1; i < inputData.size(); i++) {

@@ -1,17 +1,16 @@
 #include "IOGraphs.h"
 
 IOGraphs::IOGraphs(sf::Vector2f dim, int numGraphs) :
-settings(),
+settings(0, 0, 20),
 dim(dim),
-win1(sf::VideoMode(dim.x, dim.y), "Win1"),
-win2(sf::VideoMode(dim.x, dim.y), "Win2"),
+win1(sf::VideoMode(dim.x, dim.y), "Win1", sf::Style::Default, settings),
+win2(sf::VideoMode(dim.x, dim.y), "Win2", sf::Style::Default, settings),
 view( sf::FloatRect{ 0.f, 0.f, dim.x, dim.y } ),
 graph1(dim),
 graph2(dim)
 {
-	settings.antialiasingLevel = 20;
-	win1.setFramerateLimit(100);
-	win2.setFramerateLimit(100);
+	win1.setFramerateLimit(20);
+	win2.setFramerateLimit(20);
 	view.zoom(1);
 	win1.setView(view);
 	win2.setView(view);
@@ -64,6 +63,8 @@ void IOGraphs::run() {
 
 		win1.display();
 		win2.display();
+
+		std::cout << "Input: " << graph1.getLastInput() << "      Output: " << graph1.getLastOutput() << std::endl;
 
 		++numUpdates;
 	}

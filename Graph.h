@@ -15,7 +15,8 @@ public:
 	void draw(sf::RenderWindow *window);	//draws stuff
 	inline int getDataSize() { return inputData.size(); };
 	inline sf::Vector2f getDimensions() { return dim; };
-
+	inline double getLastInput() { return inputData[inputData.size() - 1].position.y; };
+	inline double getLastOutput() { return outputData[outputData.size() - 1].position.y; };
 	bool on;
 private:
 	sf::Vector2f dim;	//dimensions of graph
