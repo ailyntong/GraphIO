@@ -34,10 +34,7 @@ private:
 	sf::Vector2f dim;
 
 	inline bool isRunning() { return (graph1.running && graph2.running); };
-	inline void toggleRunning() { 
-		graph1.toggleRunning();
-		graph2.toggleRunning();
-	};
+	void toggleRunning();
 
 	void updateView(int increment);
 	double randValue();

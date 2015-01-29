@@ -31,7 +31,8 @@ void IOGraphs::run() {
 				win2.close();
 			}
 			else if (e.type == sf::Event::KeyPressed) {
-				if (e.key.code == sf::Keyboard::Space) toggleRunning();
+				//pressing return pauses/unpauses graphs
+				if (e.key.code == sf::Keyboard::Return) toggleRunning();
 			}
 		}
 		while (win2.pollEvent(e)) {
@@ -40,8 +41,8 @@ void IOGraphs::run() {
 				win1.close();
 			}
 			else if (e.type == sf::Event::KeyPressed) {
-				//space pauses/unpauses graphs
-				if (e.key.code == sf::Keyboard::Space) toggleRunning();
+				//pressing return pauses/unpauses graphs
+				if (e.key.code == sf::Keyboard::Return) toggleRunning();
 			}
 		}
 
@@ -49,7 +50,7 @@ void IOGraphs::run() {
 			//scrolling
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && view.getCenter().x > dim.x/2)
 				updateView(-5);
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && view.getCenter().x < graph1.getDataSize() * 5)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && view.getCenter().x < (graph1.getDataSize()*5 - dim.x/2))
 				updateView(5);
 		}
 		else {
@@ -88,4 +89,12 @@ void IOGraphs::updateView(int increment) {
 	view.move(increment, 0);
 	win1.setView(view);
 	win2.setView(view);
+}
+
+void IOGraphs::toggleRunning() {
+	graph1.toggleRunning();
+	graph2.toggleRunning();
+
+	//resuming graph moves view back to the latest data
+	if (isRunning()) updateView((graph1.getDataSize() * 5 - dim.x / 2) - view.getCenter().x);
 }
