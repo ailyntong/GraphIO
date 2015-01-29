@@ -30,29 +30,36 @@ void IOGraphs::run() {
 				win1.close();
 				win2.close();
 			}
+			else if (e.type == sf::Event::KeyPressed) {
+				if (e.key.code == sf::Keyboard::Space) toggleRunning();
+			}
 		}
 		while (win2.pollEvent(e)) {
 			if (e.type == sf::Event::Closed) {
 				win2.close();
 				win1.close();
 			}
+			else if (e.type == sf::Event::KeyPressed) {
+				if (e.key.code == sf::Keyboard::Space) toggleRunning();
+			}
+		}
+
+		if (!isRunning()) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+				std::cout << "left" << std::endl;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+				std::cout << "right" << std::endl;
 		}
 
 		win1.clear({ 20, 27, 35 });	//clears into nice blue-grayish background color
 		win2.clear({ 20, 27, 35 });
 
-		/*button.update(win);
-		win.draw(button);
-		button2.update(win2);
-		win2.draw(button2);*/
+		//only runs if not paused
+		if (isRunning()) {
+			graph1.addData(randValue() + 0.5, randValue());
+			graph2.addData(randValue() - 0.5, randValue());
 
-		graph1.addData(randValue() + 0.5, randValue());
-		graph2.addData(randValue() - 0.5, randValue());
-
-		if (++numUpdates > 400) {
-			view.move(5, 0);
-			win1.setView(view);
-			win2.setView(view);
+			if (numUpdates > 400) updateView(5);
 		}
 
 		graph1.draw(&win1);
@@ -61,6 +68,7 @@ void IOGraphs::run() {
 		win1.display();
 		win2.display();
 
+		//currently the only way to see the hist, working on scrolling
 		std::cout << "Input: " << graph1.getLastInput() << "      Output: " << graph1.getLastOutput() << std::endl;
 
 		++numUpdates;
@@ -75,4 +83,11 @@ double IOGraphs::randValue() {
 	auto dice = std::bind(distribution, generator);
 
 	return dice() / 100.0;
+}
+
+//moves the view left/right depending on the increment, and sets the wins to that
+void IOGraphs::updateView(int increment) {
+	view.move(increment, 0);
+	win1.setView(view);
+	win2.setView(view);
 }
