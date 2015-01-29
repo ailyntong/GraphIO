@@ -9,8 +9,8 @@ view( sf::FloatRect{ 0.f, 0.f, dim.x, dim.y } ),
 graph1(dim),
 graph2(dim)
 {
-	win1.setFramerateLimit(20);
-	win2.setFramerateLimit(20);
+	win1.setFramerateLimit(75);
+	win2.setFramerateLimit(75);
 	view.zoom(1);
 	win1.setView(view);
 	win2.setView(view);
@@ -40,38 +40,36 @@ void IOGraphs::run() {
 				win1.close();
 			}
 			else if (e.type == sf::Event::KeyPressed) {
+				//space pauses/unpauses graphs
 				if (e.key.code == sf::Keyboard::Space) toggleRunning();
 			}
 		}
 
 		if (!isRunning()) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-				std::cout << "left" << std::endl;
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-				std::cout << "right" << std::endl;
+			//scrolling
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && view.getCenter().x > dim.x/2)
+				updateView(-5);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && view.getCenter().x < graph1.getDataSize() * 5)
+				updateView(5);
+		}
+		else {
+			graph1.addData(randValue() + 0.5, randValue());
+			graph2.addData(randValue() - 0.5, randValue());
+
+			if (numUpdates > 200) updateView(5);
+			++numUpdates;
+
+			std::cout << "Input: " << graph1.getLastInput() << "      Output: " << graph1.getLastOutput() << std::endl;
 		}
 
 		win1.clear({ 20, 27, 35 });	//clears into nice blue-grayish background color
 		win2.clear({ 20, 27, 35 });
-
-		//only runs if not paused
-		if (isRunning()) {
-			graph1.addData(randValue() + 0.5, randValue());
-			graph2.addData(randValue() - 0.5, randValue());
-
-			if (numUpdates > 400) updateView(5);
-		}
 
 		graph1.draw(&win1);
 		graph2.draw(&win2);
 
 		win1.display();
 		win2.display();
-
-		//currently the only way to see the hist, working on scrolling
-		std::cout << "Input: " << graph1.getLastInput() << "      Output: " << graph1.getLastOutput() << std::endl;
-
-		++numUpdates;
 	}
 }
 

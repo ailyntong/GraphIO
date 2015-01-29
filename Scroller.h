@@ -1,3 +1,5 @@
+//made by Neelay
+
 #pragma once
 #ifndef SCROLLER_H
 #define SCROLLER_H
@@ -34,7 +36,6 @@ public:
 	bool isClicked(const sf::Window &window) const;
 
 	float getOutput() const { return output; }
-
 };
 
 #endif

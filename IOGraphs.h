@@ -38,6 +38,7 @@ private:
 		graph1.toggleRunning();
 		graph2.toggleRunning();
 	};
+
 	void updateView(int increment);
 	double randValue();
 };

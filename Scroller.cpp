@@ -1,3 +1,5 @@
+//made by Neelay
+
 #include "Scroller.h"
 
 Scroller::Scroller(const sf::Vector2f &pos, const sf::Vector2f &bounding_dim, float lower_bound, float upper_bound, float range) :
@@ -18,9 +20,6 @@ scroller_scale{ range / (upper_bound - lower_bound), 0.9f } {
 	scroll_range = ((bounding_rect.getPosition().x + bounding_rect.getSize().x) - width_padding - (scroll_rect.getSize().x / 2)) -
 		(bounding_rect.getPosition().x + width_padding + (scroll_rect.getSize().x / 2));
 	std::cout << "scroll_range: " << scroll_range << std::endl;
-
-
-
 }
 
 
