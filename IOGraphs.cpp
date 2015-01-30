@@ -3,17 +3,15 @@
 IOGraphs::IOGraphs(sf::Vector2f dim, int numGraphs) :
 settings(0, 0, 25),
 dim(dim),
-win1(sf::VideoMode(dim.x, dim.y), "Win1", sf::Style::Default, settings),
-win2(sf::VideoMode(dim.x, dim.y), "Win2", sf::Style::Default, settings),
+win(sf::VideoMode(dim.x, dim.y), "Win1", sf::Style::Default, settings),
+//win2(sf::VideoMode(dim.x, dim.y), "Win2", sf::Style::Default, settings),
 view( sf::FloatRect{ 0.f, 0.f, dim.x, dim.y } ),
-graph1(dim),
-graph2(dim)
+graph1(dim, sf::Color::Magenta),
+graph2(dim, sf::Color::Cyan)
 {
-	win1.setFramerateLimit(75);
-	win2.setFramerateLimit(75);
+	win.setFramerateLimit(20);
 	view.zoom(1);
-	win1.setView(view);
-	win2.setView(view);
+	win.setView(view);
 	
 	numUpdates = 0;
 }
@@ -23,26 +21,18 @@ IOGraphs::~IOGraphs() {
 }
 
 void IOGraphs::run() {
-	while (win1.isOpen() && win2.isOpen()) {
+	while (win.isOpen()) {
 		sf::Event e;
-		while (win1.pollEvent(e)) {
-			if (e.type = sf::Event::Closed) {
-				win1.close();
-				win2.close();
-			}
-			else if (e.type == sf::Event::KeyPressed) {
-				//pressing return pauses/unpauses graphs
-				if (e.key.code == sf::Keyboard::Return) toggleRunning();
-			}
-		}
-		while (win2.pollEvent(e)) {
+
+		while (win.pollEvent(e)) {
 			if (e.type == sf::Event::Closed) {
-				win2.close();
-				win1.close();
+				win.close();
 			}
 			else if (e.type == sf::Event::KeyPressed) {
 				//pressing return pauses/unpauses graphs
-				if (e.key.code == sf::Keyboard::Return) toggleRunning();
+				if (e.key.code == sf::Keyboard::Return) {
+					toggleRunning();
+				}
 			}
 		}
 
@@ -54,23 +44,21 @@ void IOGraphs::run() {
 				updateView(5);
 		}
 		else {
-			graph1.addData(randValue() + 0.5, randValue());
-			graph2.addData(randValue() - 0.5, randValue());
+			graph1.addData(randValue());
+			graph2.addData(randValue() - 0.5);
 
-			if (numUpdates > 200) updateView(5);
+			if (numUpdates > dim.x/5) updateView(5);
 			++numUpdates;
 
-			std::cout << "Input: " << graph1.getLastInput() << "      Output: " << graph1.getLastOutput() << std::endl;
+			std::cout << "Input: " << graph1.getLastData() << "      Output: " << graph1.getLastData() << std::endl;
 		}
 
-		win1.clear({ 20, 27, 35 });	//clears into nice blue-grayish background color
-		win2.clear({ 20, 27, 35 });
+		win.clear({ 20, 27, 35 });	//clears into nice blue-grayish background color
 
-		graph1.draw(&win1);
-		graph2.draw(&win2);
+		graph1.draw(&win);
+		graph2.draw(&win);
 
-		win1.display();
-		win2.display();
+		win.display();
 	}
 }
 
@@ -84,11 +72,10 @@ double IOGraphs::randValue() {
 	return dice() / 100.0;
 }
 
-//moves the view left/right depending on the increment, and sets the wins to that
+//moves the view left/right depending on the increment, and sets the win to that
 void IOGraphs::updateView(int increment) {
 	view.move(increment, 0);
-	win1.setView(view);
-	win2.setView(view);
+	win.setView(view);
 }
 
 void IOGraphs::toggleRunning() {
@@ -96,5 +83,11 @@ void IOGraphs::toggleRunning() {
 	graph2.toggleRunning();
 
 	//resuming graph moves view back to the latest data
-	if (isRunning()) updateView((graph1.getDataSize() * 5 - dim.x / 2) - view.getCenter().x);
+	if (isRunning()) {
+		if (numUpdates < dim.x / 5) {
+			view.reset(sf::FloatRect{ 0.f, 0.f, dim.x, dim.y });
+			win.setView(view);
+		}
+		else updateView((graph1.getDataSize() * 5 - dim.x / 2) - view.getCenter().x);
+	}
 }

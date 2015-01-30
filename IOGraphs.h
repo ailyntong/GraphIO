@@ -26,7 +26,7 @@ public:
 	void run();
 private:
 	sf::ContextSettings settings;
-	sf::RenderWindow win1, win2;
+	sf::RenderWindow win;
 	sf::View view;
 	Graph graph1, graph2;
 
