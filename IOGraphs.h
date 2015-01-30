@@ -28,12 +28,13 @@ private:
 	sf::ContextSettings settings;
 	sf::RenderWindow win;
 	sf::View view;
+
 	Graph graph1, graph2;
 
 	int numUpdates;
-	sf::Vector2f dim;
+	sf::Vector2f dim;	//IMPORTANT
 
-	inline bool isRunning() { return (graph1.running && graph2.running); };
+	inline bool isRunning() { return (graph1.isRunning() && graph2.isRunning()); };
 	void toggleRunning();
 
 	void updateView(int increment);

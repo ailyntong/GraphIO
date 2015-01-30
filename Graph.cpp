@@ -23,13 +23,11 @@ void Graph::draw(sf::RenderWindow *window) {
 		sf::Vertex segment[] = { data[i - 1], data[i] };
 		window->draw(segment, 2, sf::Lines);
 	}
-	
 }
 
 //draws x axis
 void Graph::drawAxis(sf::RenderWindow *window) {
-	sf::Vertex x_axis[] =
-	{
+	sf::Vertex x_axis[] = {
 		sf::Vertex(sf::Vector2f(0, dim.y/2), sf::Color{ 50, 55, 125 }),
 		sf::Vertex(sf::Vector2f(data.size()*5, dim.y/2), sf::Color{ 50, 55, 125 })
 	};

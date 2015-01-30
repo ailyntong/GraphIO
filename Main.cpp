@@ -6,6 +6,5 @@ int main() {
 	graphs.run();
 
 	std::cin.ignore();
-
 	return 0;
 }
