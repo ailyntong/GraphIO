@@ -6,22 +6,22 @@
 
 class Graph {
 public:
-	Graph(sf::Vector2f dim, sf::Color color);	//constructor
-	void addData(double input);	//adds an input
-	void draw(sf::RenderWindow *window);	//draws stuff
+	Graph(sf::Vector2f dim, sf::Color color);
+	void addData(double input);
+	void draw(sf::RenderWindow *window);
 
-	inline int getDataSize() { return data.size(); };
+	inline int size() { return data.size(); };
 	inline sf::Vector2f getDimensions() { return dim; };
-	inline double getLastData() { return data[data.size() - 1].position.y; };	//returns last value that was added
+	inline double getLast() { return data[data.size() - 1].position.y; };
 
 	inline void toggleRunning() { running = !running; };
 	inline bool isRunning() { return running; };
 private:
-	sf::Vector2f dim;	//dimensions of graph
-	std::vector<sf::Vertex> data;	//data sets
-	sf::Color color;	//data colors; default input=cyan, output=magenta
+	sf::Vector2f dim;
+	std::vector<sf::Vertex> data;
+	sf::Color color;
 
-	void drawAxis(sf::RenderWindow *window);	//drawsAxis
+	void drawAxis(sf::RenderWindow *window);
 
 	bool running;
 };

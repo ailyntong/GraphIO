@@ -32,13 +32,14 @@ private:
 	Graph graph1, graph2;
 
 	int numUpdates;
-	sf::Vector2f dim;	//IMPORTANT
+	sf::Vector2f dim;
 
 	inline bool isRunning() { return (graph1.isRunning() && graph2.isRunning()); };
 	void toggleRunning();
 
 	void updateView(int increment);
 	double randValue();
+	double recvToData(std::string str);
 };
 
 #endif

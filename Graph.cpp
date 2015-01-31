@@ -13,7 +13,6 @@ void Graph::addData(double input) {
 	data.push_back(sf::Vertex(sf::Vector2f(data.size() * 5, y), color));
 }
 
-//draws everything
 void Graph::draw(sf::RenderWindow *window) {
 	drawAxis(window);
 
@@ -25,7 +24,6 @@ void Graph::draw(sf::RenderWindow *window) {
 	}
 }
 
-//draws x axis
 void Graph::drawAxis(sf::RenderWindow *window) {
 	sf::Vertex x_axis[] = {
 		sf::Vertex(sf::Vector2f(0, dim.y/2), sf::Color{ 50, 55, 125 }),
