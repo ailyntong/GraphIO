@@ -2,14 +2,14 @@
 
 //Constructor
 IOGraphs::IOGraphs(sf::Vector2f dim, int numGraphs) :
-settings(0, 0, 25),
+settings(0, 0, 50),
 dim(dim),
 win(sf::VideoMode(dim.x, dim.y), "Graph", sf::Style::Default, settings),
 view( sf::FloatRect{ 0.f, 0.f, dim.x, dim.y } ),
 input(dim, sf::Color::Magenta),
 output(dim, sf::Color::Cyan)
 {
-	win.setFramerateLimit(25);	//how many times a second the window updates
+	win.setFramerateLimit(100);	//how many times a second the window updates
 	view.zoom(1);
 	win.setView(view);
 	
