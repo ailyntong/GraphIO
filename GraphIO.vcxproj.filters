@@ -30,6 +30,9 @@
     <ClCompile Include="Scroller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Win_UDP_Listener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scroller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Win_UDP_Listener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

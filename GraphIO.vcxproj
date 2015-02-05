@@ -163,12 +163,14 @@
     <ClCompile Include="IOGraphs.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Scroller.cpp" />
+    <ClCompile Include="Win_UDP_Listener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IOGraphs.h" />
     <ClInclude Include="Scroller.h" />
+    <ClInclude Include="Win_UDP_Listener.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

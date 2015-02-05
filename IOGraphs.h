@@ -18,6 +18,7 @@
 #include <iostream>
 
 #include "Graph.h"
+#include "Win_UDP_Listener.h"
 
 class IOGraphs {
 public:
@@ -46,8 +47,10 @@ private:
 
 	void updateView(int increment);
 
+	Win_UDP_Listener rpi;
+
 	double randValue();		//used for testing without robot
-	double recvToData(std::string str);		//used for testing with robot
+	sf::Vector2f recvToData(std::string str);		//used for testing with robot
 };
 
 #endif

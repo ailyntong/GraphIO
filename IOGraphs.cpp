@@ -7,7 +7,8 @@ dim(dim),
 win(sf::VideoMode(dim.x, dim.y), "Graph", sf::Style::Default, settings),
 view( sf::FloatRect{ 0.f, 0.f, dim.x, dim.y } ),
 input(dim, sf::Color::Magenta),
-output(dim, sf::Color::Cyan)
+output(dim, sf::Color::Cyan),
+rpi{"4950"}
 {
 	win.setFramerateLimit(100);	//how many times a second the window updates
 	view.zoom(1);
@@ -38,6 +39,10 @@ void IOGraphs::run() {
 		}
 		//when graph is not paused, takes new values from external source and adds to graph lines
 		else {
+			//sf::Vector2f data = recvToData(rpi.recv);
+			//input.addData(data.x);
+			//input.addData(data.y);
+
 			input.addData(randValue());
 			output.addData(randValue() - 0.5);
 
@@ -56,21 +61,6 @@ void IOGraphs::run() {
 
 		win.display();
 	}
-}
-
-/*
-Used for testing without robot
-Generates a random value between -1 and 1
-
-Credits to Neelay for making this method
-*/
-double IOGraphs::randValue() {
-	unsigned seed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-	std::default_random_engine generator(seed);
-	std::uniform_int_distribution<int> distribution(-100, 100);
-	auto dice = std::bind(distribution, generator);
-
-	return dice() / 100.0;
 }
 
 /*
@@ -96,4 +86,29 @@ void IOGraphs::toggleRunning() {
 		}
 		else updateView((input.size() * 5 - dim.x / 2) - view.getCenter().x);
 	}
+}
+
+/*
+Used for testing without robot
+Generates a random value between -1 and 1
+
+Credits to Neelay for making this method
+*/
+double IOGraphs::randValue() {
+	unsigned seed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	std::default_random_engine generator(seed);
+	std::uniform_int_distribution<int> distribution(-100, 100);
+	auto dice = std::bind(distribution, generator);
+
+	return dice() / 100.0;
+}
+
+sf::Vector2f IOGraphs::recvToData(std::string str) {
+	sf::Vector2f retval;
+
+	std::string::size_type sz;
+	retval.x = std::stod(str, &sz);
+	retval.y = std::stod(str.substr(sz));
+
+	return retval;
 }
