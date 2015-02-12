@@ -33,9 +33,9 @@ void IOGraphs::run() {
 		//scrolling only when graph is paused
 		if (!isRunning()) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && view.getCenter().x > dim.x/2)
-				updateView(-5);
+				updateView(-10);
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && view.getCenter().x < (input.size()*5 - dim.x/2))
-				updateView(5);
+				updateView(10);
 		}
 		//when graph is not paused, takes new values from external source and adds to graph lines
 		else {

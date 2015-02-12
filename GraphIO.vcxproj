@@ -169,6 +169,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IOGraphs.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Scroller.h" />
     <ClInclude Include="Win_UDP_Listener.h" />
   </ItemGroup>
