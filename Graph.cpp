@@ -26,7 +26,7 @@ Draws all data onto RenderWindow
 void Graph::draw(sf::RenderWindow *window) {
 	if (data.size() == 0) return;
 
-	drawAxis(window);
+	//drawAxis(window);
 
 	//draws the graph by connecting lines between the vertices (data points)
 	for (int i = 1; i < data.size(); i++) {
@@ -36,15 +36,4 @@ void Graph::draw(sf::RenderWindow *window) {
 		};
 		window->draw(s, 2, sf::Lines);
 	}
-}
-
-/*
-Draws the x-axis
-*/
-void Graph::drawAxis(sf::RenderWindow *window) {
-	sf::Vertex x_axis[] = {
-		sf::Vertex(sf::Vector2f(0, dim.y/2), sf::Color{ 50, 55, 125 }),
-		sf::Vertex(sf::Vector2f(data.size()*5, dim.y/2), sf::Color{ 50, 55, 125 })
-	};
-	window->draw(x_axis, 2, sf::Lines);
 }

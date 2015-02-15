@@ -3,6 +3,7 @@
 //Constructor
 IOGraphs::IOGraphs(sf::Vector2f dim, int numGraphs) :
 settings(0, 0, 50),
+font(),
 dim(dim),
 win(sf::VideoMode(dim.x, dim.y), "Graph", sf::Style::Default, settings),
 view( sf::FloatRect{ 0.f, 0.f, dim.x, dim.y } ),
@@ -10,11 +11,13 @@ input(dim, sf::Color::Magenta),
 output(dim, sf::Color::Cyan),
 rpi{"4950"}
 {
-	win.setFramerateLimit(100);	//how many times a second the window updates
+	win.setFramerateLimit(75);	//how many times a second the window updates
 	view.zoom(1);
 	win.setView(view);
+
+	font.loadFromFile("C:/Windows/Fonts/arial.ttf");	//font used for numbers
 	
-	numUpdates = 0;	//number of times the window has updated
+	numUpdates = 0;	//number of times the window has updated; while paused numUpdates does not increment
 }
 
 /*
@@ -50,17 +53,68 @@ void IOGraphs::run() {
 			++numUpdates;
 
 			//so we have a list of data as well as a visual
-			std::cout << "Input: " << input.getLast() << "      Output: " << output.getLast() << std::endl;
+			std::cout << "Input: " << input.getLast()/100 << "      Output: " << output.getLast()/100 << std::endl;
 		}
 
 		//standard SFML clear-draw-display sequence
 		win.clear({ 20, 27, 35 });
+
+		drawAxis();
+		drawGuidelines();
+		drawOnes(view.getCenter().x - dim.x/2);
 
 		input.draw(&win);
 		output.draw(&win);
 
 		win.display();
 	}
+}
+
+/*
+Draws the x-axis
+*/
+void IOGraphs::drawAxis() {
+	sf::Vertex x_axis[] = {
+		sf::Vertex(sf::Vector2f(0, dim.y / 2), sf::Color{ 50, 55, 125 }),
+		sf::Vertex(sf::Vector2f(output.size() * 5, dim.y / 2), sf::Color{ 50, 55, 125 })
+	};
+	win.draw(x_axis, 2, sf::Lines);
+}
+
+/*
+Draws guidelines at -1 and 1
+*/
+void IOGraphs::drawGuidelines() {
+	sf::Vertex guide1[] = {
+		sf::Vertex(sf::Vector2f(0, dim.y / 2 - 100), sf::Color{ 50, 55, 125 }),
+		sf::Vertex(sf::Vector2f(output.size() * 5, dim.y / 2 - 100), sf::Color{50, 55, 125})
+	};
+	win.draw(guide1, 2, sf::Lines);
+
+	sf::Vertex guide2[] = {
+		sf::Vertex(sf::Vector2f(0, dim.y / 2 + 100), sf::Color{ 50, 55, 125 }),
+		sf::Vertex(sf::Vector2f(output.size() * 5, dim.y / 2 + 100), sf::Color{ 50, 55, 125 })
+	};
+	win.draw(guide2, 2, sf::Lines);
+}
+
+/*
+Draws -1 and 1 for y-axis
+*/
+void IOGraphs::drawOnes(int edge) {
+	sf::Text ones;
+	ones.setFont(font);
+	ones.setCharacterSize(14);
+	ones.setStyle(sf::Text::Regular);
+	ones.setColor(sf::Color::White);
+
+	ones.setString("1");
+	ones.setPosition(edge, dim.y / 2 - 100);
+	win.draw(ones);
+	
+	ones.setString("-1");
+	ones.setPosition(edge, dim.y / 2 + 100);
+	win.draw(ones);
 }
 
 /*
@@ -103,6 +157,10 @@ double IOGraphs::randValue() {
 	return dice() / 100.0;
 }
 
+/*
+Used for testing with robot
+Takes a string of values, and parses into
+*/
 sf::Vector2f IOGraphs::recvToData(std::string str) {
 	sf::Vector2f retval;
 

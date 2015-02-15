@@ -25,8 +25,6 @@ private:
 
 	std::vector<Point> data;	//data taken from external source
 
-	void drawAxis(sf::RenderWindow *window);
-
 	bool running;	//for pause/unpause
 };
 
