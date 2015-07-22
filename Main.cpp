@@ -13,28 +13,6 @@ int main() {
 	IOGraphs graphs({ 1000, 500 }, 2);
 	graphs.run();
 
-	/*sf::RenderWindow win(sf::VideoMode(200, 200), "Graph");
-
-	sf::Font font;
-	font.loadFromFile("C:/Windows/Fonts/arial.ttf");
-	sf::Text text;
-	text.setFont(font);
-	text.setCharacterSize(10);
-	text.setStyle(sf::Text::Regular);
-	text.setColor(sf::Color::White);
-	text.setString("Hello World");
-
-	while (win.isOpen()) {
-		sf::Event e;
-		while (win.pollEvent(e)) {
-			if (e.type == sf::Event::Closed) win.close();	//closes window if the x is pressed
-		}
-
-		win.clear();
-		win.draw(text);
-		win.display();
-	}*/
-
 	/*std::ofstream ofs;
 	ofs.open("test.txt");
 	ofs << "hello";

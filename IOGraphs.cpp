@@ -47,7 +47,7 @@ void IOGraphs::run() {
 			//input.addData(data.y);
 
 			input.addData(randValue());
-			output.addData(randValue() - 0.5);
+			output.addData(randValue());
 
 			if (numUpdates > dim.x/5) updateView(5);
 			++numUpdates;
@@ -149,12 +149,11 @@ Generates a random value between -1 and 1
 Credits to Neelay for making this method
 */
 double IOGraphs::randValue() {
-	unsigned seed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-	std::default_random_engine generator(seed);
-	std::uniform_int_distribution<int> distribution(-100, 100);
-	auto dice = std::bind(distribution, generator);
-
-	return dice() / 100.0;
+	//unsigned seed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	static unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	static std::default_random_engine generator(seed);
+	static std::uniform_int_distribution<int> distribution(-100, 100);
+	return distribution(generator) / 100.0;
 }
 
 /*
