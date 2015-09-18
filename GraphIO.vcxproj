@@ -159,6 +159,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CircleThing.cpp" />
+    <ClCompile Include="GraphLine.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="IOGraphs.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -167,9 +169,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CircleThing.h" />
+    <ClInclude Include="GraphLine.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IOGraphs.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Scroller.h" />
     <ClInclude Include="Win_UDP_Listener.h" />
   </ItemGroup>

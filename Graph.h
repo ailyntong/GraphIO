@@ -2,30 +2,50 @@
 #define GRAPH_H
 
 #include <SFML/Graphics.hpp>
-#include <vector>
+#include <random>
+#include <chrono>
+#include <functional>
+#include <array>
+#include <iostream>
 
-#include "Point.h"
+#include "Constants.h"
+#include "GraphLine.h"
+#include "Win_UDP_Listener.h"
 
 class Graph {
 public:
-	Graph(sf::Vector2f dim, sf::Color color);
-	void addData(double input);
-	void draw(sf::RenderWindow *window);
-
-	//various getters and setters
-	inline int size() { return data.size(); };
-	inline double getLast() { return data[data.size() - 1].y; };
-
-	inline void toggleRunning() { running = !running; };
-	inline bool isRunning() { return running; };
+	Graph();
+	void run();
 
 private:
-	sf::Vector2f dim;	//should be the same as the RenderWindow it is drawing into
-	sf::Color color;	//color of graph line
+	sf::ContextSettings settings;	//so lines look smooth
+	sf::Font font;
 
-	std::vector<Point> data;	//data taken from external source
+	/*
+	A window is the thing that pops up;
+	however, a window contains the entire "world," as it were.
+	The view allows you to see part of that world,
+	but each update the entire world is being drawn.
+	*/
+	sf::RenderWindow win;
+	sf::View view;
 
-	bool running;	//for pause/unpause
+	int numUpdates;
+
+	Win_UDP_Listener rpi;
+	
+	GraphLine input, output;	//joystick(s) and encoder(s). More can be added
+
+	void drawAxis();;
+
+	inline bool isRunning() { return (input.isRunning() && output.isRunning()); };
+	void toggleRunning();
+
+	void updateView(int increment);
+
+	double randValue();		//used for testing without robot
+	sf::Vector2f recvToData(std::string str);		//used for testing with robot
+
 };
 
 #endif

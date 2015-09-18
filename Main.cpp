@@ -1,39 +1,22 @@
-#include "IOGraphs.h"
-#include "Win_UDP_Listener.h"
+#ifdef SFML_STATIC
+#pragma comment(lib, "glew.lib")
+#pragma comment(lib, "freetype.lib")
+#pragma comment(lib, "jpeg.lib")
+#pragma comment(lib, "opengl32.lib")
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "gdi32.lib")  
+#endif	//SFML_STATIC
 
-#include <iostream>
-#include <string>
-#include <array>
-#include <fstream>
+#include "Constants.h"
+#include "Graph.h"
+#include "Win_UDP_Listener.h"
 
 /*
 Main
 */
 int main() {
-	IOGraphs graphs({ 1000, 500 }, 2);
-	graphs.run();
-
-	/*std::ofstream ofs;
-	ofs.open("test.txt");
-	ofs << "hello";
-	ofs.close();*/
-
-	/*
-	Win_UDP_Listener rpi("4950");
-	std::cout << "heree" << std::endl;
-	while (true) 
-		std::cout << rpi.recv() << std::endl;
-		*/
-/*	std::string orbits("-1 0.5 1");
-	std::string::size_type sz, sz2;
-	std::cout << "orbits: " << orbits << std::endl;
-	std::cout << std::stod(orbits, &sz);
-	std::cout << "   sz: " << sz << std::endl;
-
-	std::cout << std::stod(orbits.substr(sz), &sz2);
-	std::cout << "   sz2: " << sz2 << std::endl;
-
-	std::cout << std::stod(orbits.substr(sz + sz2)) << std::endl;*/
+	Graph graph;
+	graph.run();
 
 	std::cin.ignore();
 	return 0;
