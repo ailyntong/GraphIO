@@ -33,10 +33,10 @@
     <ClCompile Include="Graph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CircleThing.cpp">
+    <ClCompile Include="IOGraphs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IOGraphs.cpp">
+    <ClCompile Include="JoystickView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,10 +62,10 @@
     <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CircleThing.h">
+    <ClInclude Include="IOGraphs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IOGraphs.h">
+    <ClInclude Include="JoystickView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

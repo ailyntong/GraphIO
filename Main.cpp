@@ -7,16 +7,15 @@
 #pragma comment(lib, "gdi32.lib")  
 #endif	//SFML_STATIC
 
-#include "Constants.h"
-#include "Graph.h"
 #include "Win_UDP_Listener.h"
+#include "IOGraphs.h"
 
 /*
 Main
 */
 int main() {
-	Graph graph;
-	graph.run();
+	IOGraphs graphs;
+	graphs.run();
 
 	std::cin.ignore();
 	return 0;

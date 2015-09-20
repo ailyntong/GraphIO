@@ -1,17 +1,20 @@
-#ifndef CIRCLETHING_H
-#define CIRCLETHING_H
+#ifndef JOYSTICKVIEW_H
+#define JOYSTICKVIEW_H
 
 #include <SFML/Graphics.hpp>
 
 #include "Constants.h"
 
-class CircleThing {
+class JoystickView {
 public:
-	CircleThing();
+	JoystickView();
 
 	void draw(sf::RenderWindow *window);
 
 private:
+	const float BASE_RADIUS = 100;
+	const float DOT_RADIUS = 5;
+	
 	sf::CircleShape base, dot;
 };
 
