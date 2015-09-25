@@ -2,9 +2,12 @@
 
 IOGraphs::IOGraphs() :
 rpi(PORT),
-settings(0, 0, 50), 
-graphWindow(sf::VideoMode(DIM.x, DIM.y), "Graph", sf::Style::Default, settings),
-graphView(sf::FloatRect{ 0.f, 0.f, DIM.x, DIM.y }),
+graphSettings(0, 0, 50), 
+joySettings(0, 0, 100),
+graphView(sf::FloatRect{ 0.f, 0.f, GRAPH_DIM.x, GRAPH_DIM.y }),
+joystickWindow(sf::VideoMode(JOY_RADIUS * 2, JOY_RADIUS * 2), "Joystick View", sf::Style::Default, joySettings),
+graphWindow(sf::VideoMode(GRAPH_DIM.x, GRAPH_DIM.y), "Graph", sf::Style::Default, graphSettings),
+joy(),
 graph()
 {
 	graphWindow.setFramerateLimit(FRAMERATE);
@@ -14,8 +17,12 @@ graph()
 }
 
 void IOGraphs::run() {
-	while (graphWindow.isOpen()) {
+	while (graphWindow.isOpen() || joystickWindow.isOpen()) {
 		sf::Event e;
+		while (joystickWindow.pollEvent(e)) {
+			if (e.type == sf::Event::Closed)
+				joystickWindow.close();
+		}
 		while (graphWindow.pollEvent(e)) {
 			if (e.type == sf::Event::Closed) 
 				graphWindow.close();	//closes window if the x is pressed
@@ -25,32 +32,36 @@ void IOGraphs::run() {
 		}
 
 		if (!graph.isRunning()) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && graphView.getCenter().x > DIM.x / 2)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && graphView.getCenter().x > GRAPH_DIM.x / 2)
 				updateView(-GRAPH_SPACING * 2);
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && graphView.getCenter().x < (graph.size() * 5 - DIM.x / 2))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && graphView.getCenter().x < (graph.size() * 5 - GRAPH_DIM.x / 2))
 				updateView(GRAPH_SPACING * 2);
+
+			joy.update(0, 0);
 		}
-		//when graph is not paused, takes new values from external source and adds to graph lines
+
 		else {
-			//sf::Vector2f data = recvToData(rpi.recv);
-			//input.addData(data.x);
-			//input.addData(data.y);
+			double x = randValue();
+			double y = randValue();
 
-			graph.update(randValue(), randValue());
+			joy.update(x, y);
+			graph.update(x, y);
 
-			if (numUpdates > DIM.x / GRAPH_SPACING) 
+			if (numUpdates > GRAPH_DIM.x / GRAPH_SPACING)
 				updateView(GRAPH_SPACING);
 
 			++numUpdates;
 
-			//so we have a list of data as well as a visual
 			graph.print();
 		}
 
+		joystickWindow.clear();
 		graphWindow.clear({ 20, 27, 35 });
 
+		joy.draw(&joystickWindow);
 		graph.draw(&graphWindow);
 
+		joystickWindow.display();
 		graphWindow.display();
 	}
 }
@@ -64,10 +75,10 @@ void IOGraphs::toggleRunning() {
 	graph.toggleRunning();
 	
 	if (graph.isRunning()) {
-		if (numUpdates < DIM.x / 5) {
-			graphView.reset(sf::FloatRect{ 0.f, 0.f, DIM.x, DIM.y });
+		if (numUpdates < GRAPH_DIM.x / 5) {
+			graphView.reset(sf::FloatRect{ 0.f, 0.f, GRAPH_DIM.x, GRAPH_DIM.y });
 			graphWindow.setView(graphView);
-		} else updateView((graph.size() * 5 - DIM.x / 2) - graphView.getCenter().x);
+		} else updateView((graph.size() * 5 - GRAPH_DIM.x / 2) - graphView.getCenter().x);
 	}
 }
 

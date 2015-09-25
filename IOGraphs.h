@@ -27,13 +27,13 @@ private:
 
 	Win_UDP_Listener rpi;
 	
-	sf::ContextSettings settings;
+	sf::ContextSettings graphSettings, joySettings;
+
+	JoystickView joy;
+	sf::RenderWindow joystickWindow;
 
 	sf::View graphView;
 	sf::RenderWindow graphWindow;
-
-	//sf::RenderWindow joystickWindow;
-
 	Graph graph;
 
 	void updateView(int increment);
