@@ -1,0 +1,6 @@
+TODO:
+
+1. Add another graph pair...use map? make it easy
+	-make graph so that it has both Xstuff and Ystuff, and make it possible to add more
+2. Scroller on graph
+3. Figure out JoystickView converting from computer coordinates to the ones wanted
