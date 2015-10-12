@@ -17,6 +17,8 @@ public:
 	
 	void toggleRunning();
 
+	void addPair();
+
 	inline bool isRunning() { return (input.isRunning() && output.isRunning()); }
 	inline int size() { return input.size(); }
 
@@ -24,6 +26,8 @@ public:
 
 private:
 	GraphLine input, output;
+
+	std::map<GraphLine, GraphLine> pairs;
 
 	void drawAxis(sf::RenderWindow *window);
 

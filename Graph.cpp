@@ -1,10 +1,11 @@
 #include "Graph.h"
 
 Graph::Graph() :
-input(sf::Color::Magenta),
-output(sf::Color::Cyan)
+input(sf::Color::Cyan),
+output(sf::Color::Magenta),
+pairs()
 {
-	
+	//pairs.insert(GraphLine(sf::Color::Cyan), GraphLine(sf::Color::Magenta));
 }
 
 void Graph::update(double inputValue, double outputValue) {

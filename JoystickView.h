@@ -2,6 +2,7 @@
 #define JOYSTICKVIEW_H
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "Constants.h"
 #include "Point.h"

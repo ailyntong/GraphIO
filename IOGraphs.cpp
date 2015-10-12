@@ -52,7 +52,7 @@ void IOGraphs::run() {
 
 			++numUpdates;
 
-			graph.print();
+			//graph.print();
 		}
 
 		joystickWindow.clear();

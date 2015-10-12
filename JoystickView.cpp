@@ -9,11 +9,13 @@ position(0, 0)
 }
 
 void JoystickView::update(double x, double y) {
+	//std::cout << x << "   " << y << std::endl;
+	
 	position.x = x;
 	position.y = y;
 
-
-	dot.setPosition(position.x * 2 + JOY_RADIUS, -position.y * 2 + JOY_RADIUS);
+	//dot.setPosition(x * 100, y * 100);
+	//std::cout << dot.getPosition().x << "   " << dot.getPosition().y << std::endl;
 }
 
 void JoystickView::draw(sf::RenderWindow *window) {
